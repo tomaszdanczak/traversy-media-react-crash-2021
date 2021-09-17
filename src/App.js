@@ -1,4 +1,5 @@
 import { useState } from "react";
+import uniqid from "uniqid";
 import AddTask from "./components/AddTask";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
@@ -26,6 +27,14 @@ function App() {
   ]);
 
   //---------------------------------------------------------------------------
+  //                           ADD TASK
+  //---------------------------------------------------------------------------
+  const handleAddTask = (task) => {
+    const newTasks = [...tasks, { ...task, id: uniqid() }];
+    setTasks(newTasks);
+  };
+
+  //---------------------------------------------------------------------------
   //                           DELETE TASK
   //---------------------------------------------------------------------------
   const handleDeleteTask = (id) => {
@@ -47,7 +56,7 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <AddTask />
+      <AddTask onAddTask={handleAddTask} />
       {tasks.length ? (
         <Tasks
           tasks={tasks}
