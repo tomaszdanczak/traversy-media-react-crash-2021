@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import uniqid from "uniqid";
+// import uniqid from "uniqid";
 import { apiEndpoint } from "./config";
 import AddTask from "./components/AddTask";
 import Header from "./components/Header";
@@ -22,8 +22,10 @@ function App() {
   //---------------------------------------------------------------------------
   //                           ADD TASK
   //---------------------------------------------------------------------------
-  const handleAddTask = (task) => {
-    const newTasks = [...tasks, { ...task, id: uniqid() }];
+  const handleAddTask = async (task) => {
+    const { data: newTask } = await axios.post(`${apiEndpoint}`, task);
+
+    const newTasks = [...tasks, newTask];
     setTasks(newTasks);
   };
 
