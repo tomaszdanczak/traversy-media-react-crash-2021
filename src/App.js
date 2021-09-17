@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import uniqid from "uniqid";
+import { apiEndpoint } from "./config";
 import AddTask from "./components/AddTask";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
@@ -11,7 +12,7 @@ function App() {
 
   useEffect(() => {
     const getTasks = async () => {
-      const { data: tasks } = await axios.get("http://localhost:5000/tasks");
+      const { data: tasks } = await axios.get(apiEndpoint);
       setTasks(tasks);
     };
 
