@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import { Route } from "react-router-dom";
 import axios from "axios";
 // import uniqid from "uniqid";
 import { apiEndpoint } from "./config";
 import AddTask from "./components/AddTask";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import Footer from "./components/Footer";
+import About from "./components/About";
 
 function App() {
   const [showAdd, setShowAdd] = useState(false);
@@ -61,16 +64,27 @@ function App() {
         }}
         showAdd={showAdd}
       />
-      {showAdd && <AddTask onAddTask={handleAddTask} />}
-      {tasks.length ? (
-        <Tasks
-          tasks={tasks}
-          onDeleteTask={handleDeleteTask}
-          onToggleReminder={handleToggleReminder}
-        />
-      ) : (
-        <p>There are no tasks to show</p>
-      )}
+
+      <Route
+        path="/"
+        exact
+        render={(props) => (
+          <>
+            {showAdd && <AddTask onAddTask={handleAddTask} />}
+            {tasks.length ? (
+              <Tasks
+                tasks={tasks}
+                onDeleteTask={handleDeleteTask}
+                onToggleReminder={handleToggleReminder}
+              />
+            ) : (
+              <p>There are no tasks to show</p>
+            )}
+          </>
+        )}
+      />
+      <Route path="/about" component={About} />
+      <Footer />
     </div>
   );
 }
