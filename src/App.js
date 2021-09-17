@@ -24,8 +24,22 @@ function App() {
     },
   ]);
 
+  //---------------------------------------------------------------------------
+  //                           DELETE TASK
+  //---------------------------------------------------------------------------
   const handleDeleteTask = (id) => {
     const newTasks = tasks.filter((t) => t.id !== id);
+    setTasks(newTasks);
+  };
+
+  //---------------------------------------------------------------------------
+  //                           TOGGLE REMINDER
+  //---------------------------------------------------------------------------
+  const handleToggleReminder = (task) => {
+    const newTasks = [...tasks];
+    const index = tasks.indexOf(task);
+    newTasks[index] = { ...newTasks[index] };
+    newTasks[index].reminder = !newTasks[index].reminder;
     setTasks(newTasks);
   };
 
@@ -33,7 +47,11 @@ function App() {
     <div className="container">
       <Header />
       {tasks.length ? (
-        <Tasks tasks={tasks} onDeleteTask={handleDeleteTask} />
+        <Tasks
+          tasks={tasks}
+          onDeleteTask={handleDeleteTask}
+          onToggleReminder={handleToggleReminder}
+        />
       ) : (
         <p>There are no tasks to show</p>
       )}
