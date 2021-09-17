@@ -30,7 +30,9 @@ function App() {
   //---------------------------------------------------------------------------
   //                           DELETE TASK
   //---------------------------------------------------------------------------
-  const handleDeleteTask = (id) => {
+  const handleDeleteTask = async (id) => {
+    await axios.delete(`${apiEndpoint}/${id}`);
+
     const newTasks = tasks.filter((t) => t.id !== id);
     setTasks(newTasks);
   };
