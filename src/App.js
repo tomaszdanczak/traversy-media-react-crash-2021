@@ -42,11 +42,14 @@ function App() {
   //---------------------------------------------------------------------------
   //                           TOGGLE REMINDER
   //---------------------------------------------------------------------------
-  const handleToggleReminder = (task) => {
+  const handleToggleReminder = async (task) => {
     const newTasks = [...tasks];
     const index = tasks.indexOf(task);
     newTasks[index] = { ...newTasks[index] };
     newTasks[index].reminder = !newTasks[index].reminder;
+
+    await axios.put(`${apiEndpoint}/${task.id}`, newTasks[index]);
+
     setTasks(newTasks);
   };
 
