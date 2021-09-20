@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import axios from "axios";
-// import uniqid from "uniqid";
+import uniqid from "uniqid";
 import { apiEndpoint } from "./config";
 import AddTask from "./components/AddTask";
 import Header from "./components/Header";
@@ -35,15 +35,26 @@ function App() {
   //   getTasks();
   // }, []);
 
-  //---------------------------------------------------------------------------
-  //                           ADD TASK
-  //---------------------------------------------------------------------------
-  const handleAddTask = async (task) => {
-    const { data: newTask } = await axios.post(`${apiEndpoint}`, task);
+  //***************************************************************************
+  //     ADD TASK to localStorage (works without DB)
+  //***************************************************************************
 
-    const newTasks = [...tasks, newTask];
+  const handleAddTask = (task) => {
+    const newTasks = [...tasks, { ...task, id: uniqid() }];
+    localStorage.setItem("tasks", JSON.stringify(newTasks));
     setTasks(newTasks);
   };
+
+  //***************************************************************************
+  //     ADD TASK to DB (works only locally after npm run server)
+  //***************************************************************************
+
+  // const handleAddTask = async (task) => {
+  //   const { data: newTask } = await axios.post(`${apiEndpoint}`, task);
+
+  //   const newTasks = [...tasks, newTask];
+  //   setTasks(newTasks);
+  // };
 
   //---------------------------------------------------------------------------
   //                           DELETE TASK
