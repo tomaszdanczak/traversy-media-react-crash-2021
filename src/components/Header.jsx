@@ -8,7 +8,7 @@ const Header = ({ title, showAdd, onShowAdd }) => {
   return (
     <header className="header">
       <h1>{title}</h1>
-      {location.pathname === "/" && (
+      {location.pathname === `${process.env.PUBLIC_URL}/` && (
         <Button
           color={showAdd ? "red" : "green"}
           text={showAdd ? "Close" : "Add"}

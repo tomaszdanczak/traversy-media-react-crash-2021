@@ -20,6 +20,7 @@ function App() {
   useEffect(() => {
     const storageTasks = JSON.parse(localStorage.getItem("tasks")) || [];
     setTasks(storageTasks);
+    console.log("process.env.PUBLIC_URL:", process.env.PUBLIC_URL);
   }, []);
 
   //***************************************************************************
@@ -117,7 +118,7 @@ function App() {
       />
 
       <Route
-        path="/"
+        path={`${process.env.PUBLIC_URL}/`}
         exact
         render={(props) => (
           <>
@@ -134,7 +135,7 @@ function App() {
           </>
         )}
       />
-      <Route path="/about" component={About} />
+      <Route path={`${process.env.PUBLIC_URL}/about`} component={About} />
       <Footer />
     </div>
   );
