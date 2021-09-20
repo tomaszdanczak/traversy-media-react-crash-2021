@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/traversy-media-react-crash-2021/static/css/main.dc8ae5a4.chunk.css",
-    "main.js": "/traversy-media-react-crash-2021/static/js/main.de037a23.chunk.js",
-    "main.js.map": "/traversy-media-react-crash-2021/static/js/main.de037a23.chunk.js.map",
+    "main.js": "/traversy-media-react-crash-2021/static/js/main.f74d85a2.chunk.js",
+    "main.js.map": "/traversy-media-react-crash-2021/static/js/main.f74d85a2.chunk.js.map",
     "runtime-main.js": "/traversy-media-react-crash-2021/static/js/runtime-main.60dd57c2.js",
     "runtime-main.js.map": "/traversy-media-react-crash-2021/static/js/runtime-main.60dd57c2.js.map",
     "static/js/2.2751a5ad.chunk.js": "/traversy-media-react-crash-2021/static/js/2.2751a5ad.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.60dd57c2.js",
     "static/js/2.2751a5ad.chunk.js",
     "static/css/main.dc8ae5a4.chunk.css",
-    "static/js/main.de037a23.chunk.js"
+    "static/js/main.f74d85a2.chunk.js"
   ]
 }
