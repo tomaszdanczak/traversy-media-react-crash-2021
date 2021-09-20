@@ -13,14 +13,27 @@ function App() {
   const [showAdd, setShowAdd] = useState(false);
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
-    const getTasks = async () => {
-      const { data: tasks } = await axios.get(apiEndpoint);
-      setTasks(tasks);
-    };
+  //***************************************************************************
+  //     LOAD TASKS from localStorage (works without DB)
+  //***************************************************************************
 
-    getTasks();
+  useEffect(() => {
+    const storageTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    setTasks(storageTasks);
   }, []);
+
+  //***************************************************************************
+  //     LOAD TASKS from DB (works only locally after npm run server )
+  //***************************************************************************
+
+  // useEffect(() => {
+  //   const getTasks = async () => {
+  //     const { data: tasks } = await axios.get(apiEndpoint);
+  //     setTasks(tasks);
+  //   };
+
+  //   getTasks();
+  // }, []);
 
   //---------------------------------------------------------------------------
   //                           ADD TASK
