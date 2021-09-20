@@ -56,15 +56,26 @@ function App() {
   //   setTasks(newTasks);
   // };
 
-  //---------------------------------------------------------------------------
-  //                           DELETE TASK
-  //---------------------------------------------------------------------------
-  const handleDeleteTask = async (id) => {
-    await axios.delete(`${apiEndpoint}/${id}`);
+  //***************************************************************************
+  //     DELETE TASK from localStorage (works without DB)
+  //***************************************************************************
 
+  const handleDeleteTask = (id) => {
     const newTasks = tasks.filter((t) => t.id !== id);
+    localStorage.setItem("tasks", JSON.stringify(newTasks));
     setTasks(newTasks);
   };
+
+  //***************************************************************************
+  //     DELETE TASK from DB (works only locally after npm run server)
+  //***************************************************************************
+
+  // const handleDeleteTask = async (id) => {
+  //   await axios.delete(`${apiEndpoint}/${id}`);
+
+  //   const newTasks = tasks.filter((t) => t.id !== id);
+  //   setTasks(newTasks);
+  // };
 
   //---------------------------------------------------------------------------
   //                           TOGGLE REMINDER
