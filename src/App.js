@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import axios from "axios";
-import uniqid from "uniqid";
+// import uniqid from "uniqid";
 import { apiEndpoint } from "./config";
 import AddTask from "./components/AddTask";
 import Header from "./components/Header";
@@ -17,96 +17,96 @@ function App() {
   //     LOAD TASKS from localStorage (works without DB)
   //***************************************************************************
 
-  useEffect(() => {
-    const storageTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    setTasks(storageTasks);
-    console.log("process.env.PUBLIC_URL:", process.env.PUBLIC_URL);
-  }, []);
+  // useEffect(() => {
+  //   const storageTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  //   setTasks(storageTasks);
+  //   console.log("process.env.PUBLIC_URL:", process.env.PUBLIC_URL);
+  // }, []);
 
   //***************************************************************************
   //     LOAD TASKS from DB (works only locally after npm run server )
   //***************************************************************************
 
-  // useEffect(() => {
-  //   const getTasks = async () => {
-  //     const { data: tasks } = await axios.get(apiEndpoint);
-  //     setTasks(tasks);
-  //   };
+  useEffect(() => {
+    const getTasks = async () => {
+      const { data: tasks } = await axios.get(apiEndpoint);
+      setTasks(tasks);
+    };
 
-  //   getTasks();
-  // }, []);
+    getTasks();
+  }, []);
 
   //***************************************************************************
   //     ADD TASK to localStorage (works without DB)
   //***************************************************************************
 
-  const handleAddTask = (task) => {
-    const newTasks = [...tasks, { ...task, id: uniqid() }];
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
-    setTasks(newTasks);
-  };
+  // const handleAddTask = (task) => {
+  //   const newTasks = [...tasks, { ...task, id: uniqid() }];
+  //   localStorage.setItem("tasks", JSON.stringify(newTasks));
+  //   setTasks(newTasks);
+  // };
 
   //***************************************************************************
   //     ADD TASK to DB (works only locally after npm run server)
   //***************************************************************************
 
-  // const handleAddTask = async (task) => {
-  //   const { data: newTask } = await axios.post(`${apiEndpoint}`, task);
+  const handleAddTask = async (task) => {
+    const { data: newTask } = await axios.post(`${apiEndpoint}`, task);
 
-  //   const newTasks = [...tasks, newTask];
-  //   setTasks(newTasks);
-  // };
+    const newTasks = [...tasks, newTask];
+    setTasks(newTasks);
+  };
 
   //***************************************************************************
   //     DELETE TASK from localStorage (works without DB)
   //***************************************************************************
 
-  const handleDeleteTask = (id) => {
-    const newTasks = tasks.filter((t) => t.id !== id);
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
-    setTasks(newTasks);
-  };
+  // const handleDeleteTask = (id) => {
+  //   const newTasks = tasks.filter((t) => t.id !== id);
+  //   localStorage.setItem("tasks", JSON.stringify(newTasks));
+  //   setTasks(newTasks);
+  // };
 
   //***************************************************************************
   //     DELETE TASK from DB (works only locally after npm run server)
   //***************************************************************************
 
-  // const handleDeleteTask = async (id) => {
-  //   await axios.delete(`${apiEndpoint}/${id}`);
+  const handleDeleteTask = async (id) => {
+    await axios.delete(`${apiEndpoint}/${id}`);
 
-  //   const newTasks = tasks.filter((t) => t.id !== id);
-  //   setTasks(newTasks);
-  // };
+    const newTasks = tasks.filter((t) => t.id !== id);
+    setTasks(newTasks);
+  };
 
   //***************************************************************************
   //     TOGGLE REMINDER in localStorage (works without DB)
   //***************************************************************************
 
-  const handleToggleReminder = (task) => {
-    const newTasks = [...tasks];
-    const index = tasks.indexOf(task);
-    newTasks[index] = { ...newTasks[index] };
-    newTasks[index].reminder = !newTasks[index].reminder;
-
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
-
-    setTasks(newTasks);
-  };
-
-  //***************************************************************************
-  //     TOGGLE REMINDER in DB (works only locally after npm run server)
-  //***************************************************************************
-
-  // const handleToggleReminder = async (task) => {
+  // const handleToggleReminder = (task) => {
   //   const newTasks = [...tasks];
   //   const index = tasks.indexOf(task);
   //   newTasks[index] = { ...newTasks[index] };
   //   newTasks[index].reminder = !newTasks[index].reminder;
 
-  //   await axios.put(`${apiEndpoint}/${task.id}`, newTasks[index]);
+  //   localStorage.setItem("tasks", JSON.stringify(newTasks));
 
   //   setTasks(newTasks);
   // };
+
+  //***************************************************************************
+  //     TOGGLE REMINDER in DB (works only locally after npm run server)
+  //***************************************************************************
+
+  const handleToggleReminder = async (task) => {
+    const newTasks = [...tasks];
+    const index = tasks.indexOf(task);
+    newTasks[index] = { ...newTasks[index] };
+    newTasks[index].reminder = !newTasks[index].reminder;
+
+    await axios.put(`${apiEndpoint}/${task.id}`, newTasks[index]);
+
+    setTasks(newTasks);
+  };
 
   return (
     <div className="container">
