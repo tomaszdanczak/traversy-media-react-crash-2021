@@ -77,19 +77,35 @@ function App() {
   //   setTasks(newTasks);
   // };
 
-  //---------------------------------------------------------------------------
-  //                           TOGGLE REMINDER
-  //---------------------------------------------------------------------------
-  const handleToggleReminder = async (task) => {
+  //***************************************************************************
+  //     TOGGLE REMINDER in localStorage (works without DB)
+  //***************************************************************************
+
+  const handleToggleReminder = (task) => {
     const newTasks = [...tasks];
     const index = tasks.indexOf(task);
     newTasks[index] = { ...newTasks[index] };
     newTasks[index].reminder = !newTasks[index].reminder;
 
-    await axios.put(`${apiEndpoint}/${task.id}`, newTasks[index]);
+    localStorage.setItem("tasks", JSON.stringify(newTasks));
 
     setTasks(newTasks);
   };
+
+  //***************************************************************************
+  //     TOGGLE REMINDER in DB (works only locally after npm run server)
+  //***************************************************************************
+
+  // const handleToggleReminder = async (task) => {
+  //   const newTasks = [...tasks];
+  //   const index = tasks.indexOf(task);
+  //   newTasks[index] = { ...newTasks[index] };
+  //   newTasks[index].reminder = !newTasks[index].reminder;
+
+  //   await axios.put(`${apiEndpoint}/${task.id}`, newTasks[index]);
+
+  //   setTasks(newTasks);
+  // };
 
   return (
     <div className="container">
